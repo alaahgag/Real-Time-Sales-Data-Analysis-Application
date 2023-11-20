@@ -67,7 +67,7 @@ def read_kafka_data(spark, kafka_topic, kafka_bootstrap_servers):
     sales_df1 = sales_df.selectExpr('CAST(value AS STRING)')
     return sales_df1
 
-def process_data(spark, kafka_topic, kafka_bootstrap_servers, stock_filepath, hdfs_output_path, postgres_jdbc_url, postgres_config):
+def process_data(spark, kafka_topic, kafka_bootstrap_servers, stock_filepath, postgres_jdbc_url, postgres_config):
     """
     Process and analyze data from Kafka and external files, and write results to various sinks.
 
@@ -139,15 +139,6 @@ def process_data(spark, kafka_topic, kafka_bootstrap_servers, stock_filepath, hd
         .format('console') \
         .start()
 
-    # Write to HDFS
-    sales_df.writeStream \
-        .outputMode('append') \
-        .format('parquet') \
-        .option('path', hdfs_output_path) \
-        .option('checkpointLocation', '/tmp/pyspark7_checkpoint') \
-        .trigger(processingTime='5 seconds') \
-        .start()
-
     # Write to PostgreSQL sales table
     sales_df.writeStream \
         .trigger(processingTime='5 seconds') \
@@ -187,10 +178,9 @@ def main():
         'driver': 'org.postgresql.Driver',
     }
     postgres_jdbc_url = 'jdbc:postgresql://localhost:5432/sales'
-    hdfs_output_path = "hdfs://localhost:9000/user/alaa-haggag/sales_DB"
     stock_filepath = "file:////home/alaa-haggag/Projects/Kafka-Spark_Streaming/Prepared_Data/Stock_Quantity.csv"
 
-    process_data(spark, KAFKA_TOPIC_NAME, KAFKA_BOOTSTRAP_SERVERS, stock_filepath, hdfs_output_path, postgres_jdbc_url, postgres_config)
+    process_data(spark, KAFKA_TOPIC_NAME, KAFKA_BOOTSTRAP_SERVERS, stock_filepath, postgres_jdbc_url, postgres_config)
 
 if __name__ == '__main__':
     main()
