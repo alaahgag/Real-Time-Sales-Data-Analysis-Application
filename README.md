@@ -87,12 +87,52 @@ Ensure that you have the following prerequisites installed on your system:
 
 ## Setup and Configuration
 
-1. Make sure that the Java version is compatible with Pyspark.
-   
-2. **Clone the Repository:**
-   Clone the Real-Time Sales Data Analysis Application repository to your local machine.
+- 1- Make sure that the Java version is compatible with Pyspark.
+- 2- Clone the repository
 
-   ```bash
-   git clone https://github.com/alaahgag/Real-Time-Sales-Data-Analysis-Application.git
-   cd real-time-sales-analysis
+```bash
+  git clone https://github.com/alaahgag/Real-Time-Sales-Data-Analysis-Application.git
+```
+
+- 3- Navigate to the project directory
+
+```bash
+  cd Real-Time-Sales-Data-Analysis-Application
+```
+
+- 4- install the needed packages and libraries
+
+```bash
+  pip install -r ./requirements.txt
+```
+
+**Launch the project:**
+
+- 1- Start Kafka:
+```bash
+  sh confg/start-zookeeper.sh
+```
+```bash
+  sh confg/start-kafka.sh
+```
+
+- 2- Start Apache Superset:
+```bash
+  superset run -p 8088
+```
+- 3- Start Apache Superset:
+```bash
+  airflow db init
+  airflow webserver
+```
+```bash
+  airflow scheduler
+```
+- 4- run `spark_streaming.py` file
+```bash
+  spark-submit spark_streaming.py
+```
+- 4- Invoke `kafka_stream_dag.py` file
+
+  
 
