@@ -178,11 +178,7 @@ Ensure that you have the following prerequisites installed on your system:
 
 Check out a brief demo of the Real-Time Sales Data Analysis Application dashboard:
 
-<video width="560" height="315" controls>
-  <source src="Images/real-time-dashboard.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
+[Images/real-time-dashboard.mp4](https://github.com/alaahgag/Real-Time-Sales-Data-Analysis-Application/assets/101465586/00d5e50c-1a91-434e-b178-bc40b1c17e93)
 
     
 ## Conclusion
