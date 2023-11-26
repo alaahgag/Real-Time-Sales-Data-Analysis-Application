@@ -11,65 +11,88 @@ This project is used to find out whether having a real-time sales data analysis 
 
 ![Data Platform Architecture](Images/Data_Platform_Architecture.PNG)
 
-**Overview:**
-- Customer purchase data flows to Kafka producer.
-- Kafka sends data to a designated topic.
-- Apache Spark processes data in real-time.
+The Data Platform Architecture of the Real-Time Sales Data Analysis Application is designed to provide a streamlined and efficient process for handling sales data from its inception to real-time analytics. Customer purchase information is initially generated and transmitted through a Kafka producer, which then sends the data to a designated Kafka topic. Subsequently, an Apache Spark streaming application processes the data, extracting pertinent information and transforming it for further analysis. The processed data finds a reliable home in a PostgreSQL database, offering structured storage. 
 
-**Data Ingestion:**
-- Customer purchase information is generated at the checkout counter.
-- The data is sent to a Kafka producer.
-- Kafka producer transmits the data to a specific Kafka topic in the messaging layer.
-
-**Stream Processing:**
-- Apache Spark streaming application ingests and processes data from the Kafka topic.
-- Processing includes extracting relevant information and transforming data for further analysis.
-
-**Data Storage:**
-- Processed data is stored in a PostgreSQL database.
-- PostgreSQL provides a reliable and structured storage solution for the processed data.
-
-**Real-Time Analytics:**
-- The stored data in PostgreSQL is used to build live dashboards using Apache Superset.
-- Apache Superset enables real-time analytics and visualization of key metrics derived from the processed data.
-
-This architecture ensures a seamless flow of data from its generation at the checkout counter to real-time analytics and visualization, enhancing the overall efficiency of the data platform.
+Finally, the stored data is leveraged to create live dashboards using Apache Superset, enabling real-time analytics and visualization of key metrics. This architecture ensures a seamless and comprehensive flow of data, empowering the application to deliver timely insights into sales trends and inventory management.
 
 
 ## Project Workflow
 
-### Data Source
+### 1. Data Source
 
-To simulate product checkout, I utilized a Kaggle [sales dataset](https://www.kaggle.com/datasets/knightbearr/sales-product-data) in the Kafka Producer.
+To simulate product checkouts, a Kaggle [sales dataset](https://www.kaggle.com/datasets/knightbearr/sales-product-data) is utilized in the Kafka Producer.
 
-### Data Preparation
+### 2. Data Preparation
 
-The Kaggle dataset required cleaning and column trimming.
-**Sample of Sales Data:**
-![Sales Data Sample](Images/sales_data.PNG)
+The Kaggle dataset undergoes cleaning and column trimming to ensure data quality. Two primary datasets are prepared: Sales Data and Stock Quantity Data.
 
-**Stock Quantity Data:**
-![Stock Quantity Data](Images/stock_quantity.PNG)
+#### Sample Data:
 
-### Data Producer
+- *Sales Data*:  
+  <img src="Images/sales_data.PNG" width="400">
 
-Implemented a Kafka Producer to stream sales data to the "sales" topic in Kafka.
+- *Stock Quantity Data*:  
+  <img src="Images/stock_quantity.PNG" width="400">
 
-### Data Storage
+### 3. Data Producer
 
-Developed a Python script to create a PostgreSQL database and tables for storing processed data.
+A dedicated Kafka Producer streams sales data to the "sales" topic in Kafka, ensuring a reliable and real-time data flow.
 
-### Spark Structure Streaming
+### 4. Data Storage
 
-Created a Python script for ingesting, processing, and storing data from the "sales_topic" Kafka topic into PostgreSQL.
+A Python script creates a PostgreSQL database and tables for storing processed data, providing a structured storage solution.
 
-- Stream data from Kafka using Spark.
-- Store raw sales data in MongoDB.
-- Transform data by splitting "Sale_Date" into "Date," "Day," "Month," and "Year."
-- Store transformed sales data in MySQL.
-- Join with Stock Quantity data, aggregate, and store in MySQL.
+### 5. Spark Structured Streaming
 
-For a detailed understanding, refer to the [structure_streaming.py](Codes/structure_streaming.py) code.
+A Python script handles data ingestion, processing, and storage from the "sales" Kafka topic into PostgreSQL. It includes steps such as streaming data from Kafka using Spark, transforming data, and aggregating results in PostgreSQL.
+
+### 6. Data Visualization with Apache Superset
+
+The stored data in PostgreSQL is leveraged to build live dashboards using Apache Superset. This step enables real-time analytics and visualization of key metrics derived from the processed data.
+
+This organized structure provides a clear understanding of the project, its architecture, and the detailed workflow. Contributors and users can easily navigate and comprehend the different components and steps involved in the Real-Time Sales Data Analysis Application.
 
 
+## Project Files
+
+- **`create_db_schema.py`:**
+  *This script creates the sales database schema for stock and sales in PostgreSQL.*
+
+- **`data_preparation.py`:**
+  *The data_preparation.py script is responsible for preparing and cleaning the sales data, ensuring its quality and relevance for further analysis and streaming.*
+
+- **`generate_sales_data.py`:**
+  *The generate_sales_data.py script creates a Kafka producer to generate data and stream it to the "sales" topic in Kafka.*
+
+- **`spark_streaming.py`:**
+  *The spark_streaming.py file orchestrates the execution of the Spark Structured Streaming application. It sets up the logger, initializes the Spark session, defines configuration parameters, and calls the `process_data` function to execute the ETL process.*
+
+- **`kafka_stream_dag.py`:**
+  *The kafka_stream_dag.py file defines an Airflow Directed Acyclic Graph (DAG) responsible for streaming data to a Kafka topic. It is configured to run daily at 1 AM, designed not to run for any missed intervals (with catchup=False), and allows only one active run at a time.*
+
+
+# Running the Project
+
+To successfully run the Real-Time Sales Data Analysis Application, follow the steps outlined below.
+
+## Prerequisites
+
+Ensure that you have the following prerequisites installed on your system:
+
+- Apache Spark
+- Apache Kafka
+- PostgreSQL
+- Apache Superset
+- Python (3.6 or higher)
+
+## Setup and Configuration
+
+1. Make sure that the Java version is compatible with Pyspark.
+   
+2. **Clone the Repository:**
+   Clone the Real-Time Sales Data Analysis Application repository to your local machine.
+
+   ```bash
+   git clone https://github.com/alaahgag/Real-Time-Sales-Data-Analysis-Application.git
+   cd real-time-sales-analysis
 
