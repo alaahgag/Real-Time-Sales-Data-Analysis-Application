@@ -173,7 +173,17 @@ Ensure that you have the following prerequisites installed on your system:
    - **Troubleshooting:**
      - Refer to the official documentation for the deprecated features.
      - Update your scripts or configurations accordingly to use recommended alternatives.
-  
+
+## Dashboard Demo
+
+Check out a brief demo of the Real-Time Sales Data Analysis Application dashboard:
+
+<video width="560" height="315" controls>
+  <source src="Images/real-time-dashboard.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
     
 ## Conclusion
 
