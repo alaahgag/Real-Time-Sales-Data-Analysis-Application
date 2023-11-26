@@ -9,7 +9,8 @@ This project is used to find out whether having a real-time sales data analysis 
 
 ## Data Platform Architecture
 
-![Data Platform Architecture](Images/Data_Platform_Architecture.PNG)
+![Data Platform Architecture](Images/Real-Time%20Sales%20Data%20Analysis%20Application~2.png)
+
 
 The Data Platform Architecture of the Real-Time Sales Data Analysis Application is designed to provide a streamlined and efficient process for handling sales data from its inception to real-time analytics. Customer purchase information is initially generated and transmitted through a Kafka producer, which then sends the data to a designated Kafka topic. Subsequently, an Apache Spark streaming application processes the data, extracting pertinent information and transforming it for further analysis. The processed data finds a reliable home in a PostgreSQL database, offering structured storage. 
 
@@ -135,4 +136,65 @@ Ensure that you have the following prerequisites installed on your system:
 - 4- Invoke `kafka_stream_dag.py` file
 
   
+## General Challenges and Troubleshooting
+
+1. **Configuration Challenges:**
+   - **Issue:** Ensuring environment variables and configurations are correctly set can be tricky. An incorrect setting might prevent services from starting or communicating.
+   - **Troubleshooting:**
+     - Double-check environment variables and configurations in all scripts.
+     - Ensure paths and file locations are correctly specified.
+
+2. **Service Dependencies:**
+   - **Issue:** Services like Kafka or Airflow have dependencies on other services (e.g., Zookeeper for Kafka). Ensuring the correct order of service initialization is crucial.
+   - **Troubleshooting:**
+     - Review service dependencies and start services in the correct order.
+     - Check logs for dependency-related errors.
+
+3. **Airflow DAG Errors:**
+   - **Issue:** Syntax or logical errors in the DAG file (kafka_stream_dag.py) can prevent Airflow from recognizing or executing the DAG correctly.
+   - **Troubleshooting:**
+     - Thoroughly review the DAG file for syntax errors or logical issues.
+     - Use Airflow CLI commands for DAG validation.
+
+4. **Spark Dependencies:**
+   - **Issue:** Ensuring all required JARs are available and compatible is essential for Spark's streaming job. Missing or incompatible JARs can lead to job failures.
+   - **Troubleshooting:**
+     - Verify the presence and compatibility of required JAR files.
+     - Check Spark logs for dependency-related errors.
+
+5. **Kafka Topic Management:**
+   - **Issue:** Creating topics with the correct configuration (like replication factor) is essential for data durability and fault tolerance.
+   - **Troubleshooting:**
+     - Use Kafka command-line tools to inspect and manage topics.
+     - Ensure topics are created with the desired configurations.
+
+6. **Deprecation Warnings:**
+   - **Issue:** The provided logs show deprecation warnings, indicating that some methods or configurations used might become obsolete in future versions.
+   - **Troubleshooting:**
+     - Refer to the official documentation for the deprecated features.
+     - Update your scripts or configurations accordingly to use recommended alternatives.
+  
+    
+## Conclusion
+
+The Real-Time Sales Data Analysis Application is a robust solution designed to address the challenges faced by Mya Gon Yaung, a traditional men's clothing retail shop. By leveraging the power of Spark Structured Streaming, Kafka, PostgreSQL, and Apache Superset, the application provides a seamless and efficient pipeline for processing, analyzing, and visualizing sales data in real-time.
+
+### Key Achievements
+
+- **Real-Time Analytics:** The application enables real-time analytics, allowing Mya Gon Yaung to monitor sales trends, identify popular products, and make informed decisions promptly.
+  
+- **Inventory Optimization:** By integrating with Spark Structured Streaming, the shop can now optimize inventory management, reducing instances of overstocking or understocking and ultimately improving profitability.
+
+- **User-Friendly Dashboards:** The use of Apache Superset facilitates the creation of user-friendly dashboards, empowering shop owners to gain insights into their business without the need for complex queries or data analysis.
+
+### Future Enhancements
+
+While the Real-Time Sales Data Analysis Application has achieved significant milestones, continuous improvement is essential. Future enhancements may include:
+
+- **Machine Learning Integration:** Incorporating machine learning models for predictive analytics, helping forecast sales trends and further refine inventory management.
+
+- **Extended Data Sources:** Integrating additional data sources beyond sales data, such as customer feedback or external market trends, to provide a more comprehensive analysis.
+
+- **Scalability:** Ensuring the application is scalable to accommodate the growth of Mya Gon Yaung or similar businesses.
+
 
